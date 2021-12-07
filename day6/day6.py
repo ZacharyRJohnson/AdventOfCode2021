@@ -1,4 +1,5 @@
 from collections import defaultdict
+from time import time
 
 def read_input(file_name):
     f = open(file_name)
@@ -29,6 +30,7 @@ def part1(data):
     return len(data)
 
 def part2(data):
+    start_time = time()
     day = 0
     groups = [0]*7
     delay = []
@@ -45,6 +47,7 @@ def part2(data):
         day += 1
 
     total = sum(groups) + to_add_ar[0][1] + to_add_ar[1][1]
+    print(time()-start_time)
     return total
 
 
