@@ -26,7 +26,7 @@ def build_tree(packets):
         while packet[3]-tot_read > 0:
             (val, subp, b_read, p_read) = build_tree(packets)
             sub_packs.append((val, subp))
-            tot_read += b_read if packet[2] == 0 else p_read
+            tot_read += b_read if packet[2] == 0 else 1
             bits_read += b_read
             packs_read += p_read
     return packet[1], sub_packs, bits_read, packs_read
@@ -150,8 +150,6 @@ def part2(data):
             pack_len = i-pack_start
             packet = [v_num, type_id, len_id, len_val, pack_len]
             packets.append(packet)
-    print(len(packets))
-    print(packets)
     packets.reverse()
     ret = build_tree(packets)
     tree = (ret[0], ret[1])
@@ -161,8 +159,8 @@ def main():
     t = "test.txt"
     t2 = "test3.txt"
     in1 = "input.txt"
-    data = read_input(in1)
-    #data = read_raw("26008C8E2DA0191C5B400")
+    #data = read_input(in1)
+    data = read_raw("9C0141080250320F1802104A08")
     #print(part1(data))
     print(part2(data))
 
