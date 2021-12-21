@@ -61,8 +61,8 @@ def helper(pos, scores, turn, memo):
             new_pos = (new_spot, pos[1])
             new_scores = (scores[0]+new_spot, scores[1])
             ret = helper(new_pos, new_scores, turn+1, memo)
-            memo[(new_pos, new_scores, turn+1)] = ret
             totals[0] += (unis_code[roll] * ret[0])
+            totals[1] += (unis_code[roll] * ret[1])
             
     else:
         cur_play_pos = pos[1]
@@ -72,9 +72,10 @@ def helper(pos, scores, turn, memo):
             new_pos = (pos[0], new_spot)
             new_scores = (scores[0], scores[1]+new_spot)
             ret = helper(new_pos, new_scores, turn+1, memo)
-            memo[(new_pos, new_scores, turn+1)] = ret
+            totals[0] += (unis_code[roll] * ret[0])
             totals[1] += (unis_code[roll] * ret[1])
-    print(totals)
+    
+    memo[key1] = tuple(totals)
     return tuple(totals)
     
     # p1_pos = pos[0]
