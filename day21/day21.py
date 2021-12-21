@@ -40,19 +40,21 @@ def part1(data):
     return total_rolls * scores[loser]
 
 def part2(data):
-    print(helper((data[0], data[1]), (0, 0), 0, defaultdict(tuple)))
+    p1_unis, p2_unis = helper((data[0], data[1]), (0, 0), 0, defaultdict(tuple))
+    print(p1_unis, p2_unis)
+    return p1_unis if p1_unis > p2_unis else p2_unis
 
 def helper(pos, scores, turn, memo):
     unis_code = {3:1, 4:3, 5:6, 6:7, 7:6, 8:3, 9:1}
     key1 = (pos, scores, turn)
     totals = [0, 0]
-    if memo[key1] != ():
-        return memo[key1]
-    elif scores[0] >= 21:
+    if scores[0] >= 21:
         return (1,0)
     elif scores[1] >= 21:
         return (0,1)
-    
+    elif memo[key1] != ():
+        return memo[key1]
+
     if turn % 2 == 0:
         cur_play_pos = pos[0]
         for roll in range(3, 10):
@@ -114,7 +116,7 @@ def helper(pos, scores, turn, memo):
 def main():
     in1 = "input.txt"
     t = "test.txt"
-    data = read_input(t)
-    print(part1(data))
-    print(part2(data))
+    data = read_input(in1)
+    print(part1(copy.deepcopy(data)))
+    print(part2(copy.deepcopy(data)))
 main()
